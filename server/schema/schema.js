@@ -143,6 +143,24 @@ const Mutation = new qraphql.GraphQLObjectType({
         });
       },
     },
+    deleteMovie: {
+      type: MovieType,
+      args: {
+        id: { type: qraphql.GraphQLNonNull(qraphql.GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Movie.findByIdAndRemove(args.id);
+      },
+    },
+    deleteDirector: {
+      type: DirectorType,
+      args: {
+        id: { type: qraphql.GraphQLNonNull(qraphql.GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Director.findByIdAndRemove(args.id);
+      },
+    },
   },
 });
 
