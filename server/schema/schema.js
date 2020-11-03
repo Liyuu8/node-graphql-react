@@ -109,6 +109,40 @@ const Mutation = new qraphql.GraphQLObjectType({
         }).save();
       },
     },
+    updateMovie: {
+      type: MovieType,
+      args: {
+        id: { type: qraphql.GraphQLNonNull(qraphql.GraphQLID) },
+        name: { type: qraphql.GraphQLString },
+        genre: { type: qraphql.GraphQLString },
+        directorId: { type: qraphql.GraphQLString },
+      },
+      resolve(parent, args) {
+        let updatedMovie = {};
+        args.name && (updatedMovie.name = args.name);
+        args.genre && (updatedMovie.genre = args.genre);
+        args.directorId && (updatedMovie.directorId = args.directorId);
+        return Movie.findByIdAndUpdate(args.id, updatedMovie, {
+          new: true,
+        });
+      },
+    },
+    updateDirector: {
+      type: DirectorType,
+      args: {
+        id: { type: qraphql.GraphQLNonNull(qraphql.GraphQLID) },
+        name: { type: qraphql.GraphQLString },
+        age: { type: qraphql.GraphQLInt },
+      },
+      resolve(parent, args) {
+        let updatedDirector = {};
+        args.name && (updatedDirector.name = args.name);
+        args.age && (updatedDirector.age = args.age);
+        return Director.findByIdAndUpdate(args.id, updatedDirector, {
+          new: true,
+        });
+      },
+    },
   },
 });
 
