@@ -50,6 +50,18 @@ const RootQuery = new qraphql.GraphQLObjectType({
         return Director.findById(args.id);
       },
     },
+    movies: {
+      type: new qraphql.GraphQLList(MovieType),
+      resolve(parent, args) {
+        return Movie.find({});
+      },
+    },
+    directors: {
+      type: new qraphql.GraphQLList(DirectorType),
+      resolve(parent, args) {
+        return Director.find({});
+      },
+    },
   },
 });
 
