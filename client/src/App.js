@@ -8,7 +8,7 @@ import SideNav from './components/SideNav';
 import MovieList from './components/MovieList';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://node-graphql-react.firebaseapp.com/graphql',
 });
 const App = () => (
   <div className="App">
