@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "apollo-boost": "^0.4.9",
     "bootstrap": "^4.5.3",
+    "gh-pages": "^3.1.0",
     "graphql": "^15.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -25,7 +26,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://liyuu8.github.io/node-graphql-react/client/",
+  "homepage": "https://liyuu8.github.io/node-graphql-react/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -43,8 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^3.1.0"
   }
 }
