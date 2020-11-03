@@ -13,11 +13,6 @@ mongoose.connect(
   (err) => console.log(err ? err : 'Connected to the database')
 );
 
-// 接続後のコールバック
-mongoose.connection.once('open', function (e) {
-  console.log('connected');
-});
-
 app.use(
   '/graphql',
   graphqlHTTP({
