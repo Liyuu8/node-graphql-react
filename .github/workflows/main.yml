@@ -28,6 +28,7 @@ jobs:
         uses: actions/setup-node@v2.1.0
         with:
           node-version: '12.x'
+        working-directory: ./client
 
       - name: install
         run: yarn install --frozen-lockfile
