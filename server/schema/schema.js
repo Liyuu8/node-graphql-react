@@ -1,4 +1,5 @@
 const qraphql = require('graphql');
+const Movie = require('../modules/movies');
 
 const MovieType = new qraphql.GraphQLObjectType({
   name: 'Movie',
@@ -15,7 +16,13 @@ const RootQuery = new qraphql.GraphQLObjectType({
     movie: {
       type: MovieType,
       args: { id: { type: qraphql.GraphQLString } },
-      resolve(parent, args) {},
+      resolve(parent, args) {
+        Movie.findById(args.id);
+      },
     },
   },
+});
+
+module.exports = new qraphql.GraphQLSchema({
+  query: RootQuery,
 });
