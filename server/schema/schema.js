@@ -8,6 +8,12 @@ const MovieType = new qraphql.GraphQLObjectType({
     id: { type: qraphql.GraphQLID },
     name: { type: qraphql.GraphQLString },
     genre: { type: qraphql.GraphQLString },
+    director: {
+      type: DirectorType,
+      resolve(parent, args) {
+        return Director.findById(parent.directorId);
+      },
+    },
   }),
 });
 
@@ -17,6 +23,12 @@ const DirectorType = new qraphql.GraphQLObjectType({
     id: { type: qraphql.GraphQLID },
     name: { type: qraphql.GraphQLString },
     age: { type: qraphql.GraphQLInt },
+    movies: {
+      type: new qraphql.GraphQLList(MovieType),
+      resolve(parent, args) {
+        return Movie.find({ directorId: parent.id });
+      },
+    },
   }),
 });
 
@@ -43,9 +55,13 @@ const RootQuery = new qraphql.GraphQLObjectType({
 
 // Example:
 // {
-//   movie(id:"5fa08271fac9d09f9cbe79c2"){
-//     name,
-//     genre
+//   director(id:"5fa0e8463232b2146ad8cf8d") {
+//     name
+//     age
+//     movies {
+//       name
+//       genre
+//     }
 //   }
 // }
 
@@ -58,11 +74,13 @@ const Mutation = new qraphql.GraphQLObjectType({
       args: {
         name: { type: qraphql.GraphQLString },
         genre: { type: qraphql.GraphQLString },
+        directorId: { type: qraphql.GraphQLID },
       },
       resolve(parent, args) {
         return new Movie({
           name: args.name,
           genre: args.genre,
+          directorId: args.directorId,
         }).save();
       },
     },
@@ -84,9 +102,13 @@ const Mutation = new qraphql.GraphQLObjectType({
 
 // Example:
 // mutation {
-//   addMovie(name: "天気の子", genre: "アニメ") {
+//   addMovie(name: "君の名は", genre: "アニメ", directorId: "5fa0e8463232b2146ad8cf8d") {
 //     name
 //     genre
+//     director {
+//       name
+//       age
+//     }
 //   }
 // }
 
