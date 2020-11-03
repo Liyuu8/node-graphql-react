@@ -23,6 +23,42 @@ const RootQuery = new qraphql.GraphQLObjectType({
   },
 });
 
+// Example:
+// {
+//   movie(id:"5fa08271fac9d09f9cbe79c2"){
+//     name,
+//     genre
+//   }
+// }
+
+const Mutation = new qraphql.GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addMovie: {
+      type: MovieType,
+      args: {
+        name: { type: qraphql.GraphQLString },
+        genre: { type: qraphql.GraphQLString },
+      },
+      resolve(parent, args) {
+        return new Movie({
+          name: args.name,
+          genre: args.genre,
+        }).save();
+      },
+    },
+  },
+});
+
+// Example:
+// mutation {
+//   addMovie(name: "天気の子", genre: "アニメ") {
+//     name
+//     genre
+//   }
+// }
+
 module.exports = new qraphql.GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
