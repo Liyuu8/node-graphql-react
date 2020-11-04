@@ -6,9 +6,10 @@ const schema = require('./schema/schema');
 const cors = require('cors');
 const app = express();
 
-require('dotenv').config();
+// https://stackoverflow.com/questions/44766536/how-do-you-setup-local-environment-variables-for-cloud-functions-for-firebase/45064266#45064266
+// https://firebase.google.com/docs/functions/config-env?hl=ja
 mongoose.connect(
-  process.env.MONGO_URL,
+  functions.config().mongo.url,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => console.log(err ? err : 'Connected to the database')
 );
